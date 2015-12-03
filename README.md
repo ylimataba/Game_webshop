@@ -17,12 +17,30 @@ Our second goal is to improve our skills in web software developing and team wor
 3. Plans
 --------
 ### URL layout ###
+index.html - The main page
+register.html - User and developer registration
+profile.html - User profile for developers and gamers
+shop.html - List of games in shop
+play.html - Page for selected game for playing
+404.html - Customized 404 page
 
-index.html
-register.html
-profile.html
-shop.html
-play.html
+### Additional features ###
+Mobile friendly (Bootstrap)
+Social media sharing
+Third party login
+Save/load and resolution feature
+Own game
+
+### Django models ###
+* user
+    + Basic information of user(Name, email etc.)
+    + Information whether the user is developer or gamer
+    + List of games the user has bought
+    + List of games the user has developed
+* game
+    + Basic information of game(Name, developer etc.)
+    + Leaderboard
+    + source
 
 4. Process and Time Schedule
 ----------------------------
@@ -101,6 +119,6 @@ Testing will be done in every step of implementation and can be seen in schedule
 
 6. Risk Analysis
 ----------------
-
+Week 4 is reserved for security proofing. We are concentrated to prevent manipulating scrores in games, getting games without payment and profile security.
 
 
