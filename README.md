@@ -4,7 +4,7 @@ Project Plan
 1. Team
 -------
 XXXXXX Amin Modabberian
-XXXXXX Johannes Kaunisvaara
+355810 Johannes Kaunisvaara
 355153 Matti Yli-Ojanperä
 
 2. Goal
