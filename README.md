@@ -9,75 +9,98 @@ Project Plan
 
 2. Goal
 -------
-*TODO*
+Our first Goal for the project is to create an online game store for JavaScript games. The service has two types of users: players and developers. Developers can add their games to the service and set a price for it. Players can buy games on the platform and then play purchased games online.
+
+Our second goal is to improve our skills in web software developing and team work.
 
 
 3. Plans
 --------
-*TODO*
-Make Steam jobless
+### URL layout ###
 
-
-### 3.1 Example h3 header ###
-*TODO*
+index.html
+register.html
+profile.html
+shop.html
+play.html
 
 4. Process and Time Schedule
 ----------------------------
 
-* week 50
+* Week 50
 	+ Start project plan
 
-* week 51
+* Week 51
 	+ Finish project plan
 
-* week 52
+* Week 52
 	+ Holidays
 
-* week 53
+* Week 53
 	+ Holidays
 
-* week 1
+* Week 1
 	+ Creation of Django project
 	+ Authentication
-		- First draft of template
-	+ Basic player functionalities 
-	+ Basic developer functionalities 
-* week 2
+		- First draft of templates
+	+ Creation of models
+		- Basic player functionalities 
+			+ First draft of templates
+			
+		- Basic developer functionalities 
+			+ First draft of templates
+			
+
+* Week 2
 	+ Authentication
 		- Email confirmation
 	+ Basic player functionalities 
+		- Finishing models
+		- Begin testing player functionalities
 	+ Basic developer functionalities 
-* week 3
-	+ Writing unit tests
-* week 4
+		- Finishing models
+		- Begin testing developer functionalities
+
+* Week 3
 	+ Game/service interaction
-* week 5
+	+ Continuing unit tests
+
+* Week 4
+	+ Security proofing
+	+ Finish unit tests
+	
+* Week 5
 	+ Visual appearance CSS / Bootsrap 
 	+ Additional Features
 		- Mobile Friendly
 		- Social media Sharing
-* week 6
-	+Additional Features
+
+* Week 6
+	+ Additional Features
 		- Third party login
 		- Save/Load and resolution feature
 
-* week 7
+* Week 7
+	+ Final testing round
 	+ Finishing project 
 	+ Own Game?
 
-Deadlines
+* Deadlines
     * Group registration - 13.12.2015 midnight
     * Project Plan - 20.12.2015 midnight
     * Final submission - 20.2.2016 midnight (end of period III)
     * Project demonstrations - few weeks after submission, announced when space has been reserved
-*TODO*
 
 5. Testing
 ----------
-*TODO*
+Backend is tested by unit tests.
+Frontend is tested by hand or if we have time, we use robot framework 
+for automated tests
+
+Testing will be done in every step of implementation and can be seen in schedule. We have reserved also week 4 and week 7 for testing.
 
 6. Risk Analysis
 ----------------
-*TODO*
+
 
 
