@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import gameshop.genre as game_genres #HUOM!
 
 class Score(models.Model):
@@ -6,7 +7,7 @@ class Score(models.Model):
 	
 	points = models.PositiveIntegerField()
 	game = models.ForeignKey("Game", related_name="GameScores")
-	user = models.ForeignKey("User", related_name="UserScores")
+	user = models.ForeignKey(User, related_name="UserScores")
 	
 	class Meta:
 		ordering = ["points"]
@@ -14,13 +15,13 @@ class Score(models.Model):
 class Game(models.Model):
 	"""Model to keep all the game infromation in database"""
 	
-	name = models.CharField(max_length=225)
+	name = models.CharField(max_length=225, unique=True)
 	description = models.CharField(max_length=300)
 	release_date = models.DateField(blank=True)
-	developer = models.ForeignKey("User", related_name="DeveloperGames")
+	game_developer = models.ForeignKey(User, related_name="DeveloperGames") # can't be just developer because it clashes with Developer.library
 	publisher = models.CharField(max_length=225, blank=True)
 	genre = models.CharField(max_length=225, choices=game_genres.GENRE_CHOICES) #GENRE_CHOICES omassa tiedostossa
-	source = models.URLField(max_length=225)
+	source = models.URLField(max_length=225, unique=True)
 
 	def get_gamescores(self):
 		return self.DeveloperGames.all()
@@ -29,20 +30,17 @@ class Game(models.Model):
 	class Meta:
 		ordering =["name"]
 
-class User(models.Model):
-	"""Model to keep all the user infromation in database"""
-	
-	name = models.CharField(max_length=225)
-	user_name = models.CharField(max_length=225)
-	email = models.EmailField(max_length=225)
-	date_of_birth = models.DateField()
+class Gamer(models.Model):
+	"""Model to keep all the gamer infromation in database"""
+	user = models.ForeignKey(User)
+	#date_of_birth = models.DateField()
+	library = models.ManyToManyField("Game")
+
+
+class Developer(models.Model):
+	"""Model to keep all the developer infromation in database"""
+	user = models.ForeignKey(User)
+	#date_of_birth = models.DateField()
 	library = models.ManyToManyField("Game")
 
 	
-
-	"""def is_developer(self):
-		if not self.DeveloperGames.all():
-			return False
-		else:
-			return True """
-			
