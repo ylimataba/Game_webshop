@@ -10,8 +10,6 @@ def index(request):
         context = {'user':True}
     return render(request, 'gameshop/index.html', context)
 
-''' TODO write corresponding templates!
-
 def register(request):
     context = {}
     return render(request, 'gameshop/register.html', context)
@@ -28,4 +26,4 @@ def play(request):
     context = {}
     return render(request, 'gameshop/play.html', context)
 
-'''
+
