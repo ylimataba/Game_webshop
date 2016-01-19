@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from .models import Game, User, Score #TODO import correct models
-#from django.contrib.auth.decorators import login_required
+from .models import Score, Game, Gamer, Developer
 
-#@login_required(login_url='login')
 def index(request):
     if not request.user.is_authenticated():
         context = {'user':False}
@@ -25,5 +23,3 @@ def shop(request):
 def play(request):
     context = {}
     return render(request, 'gameshop/play.html', context)
-
-
