@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from .models import Game, User, Score #TODO import correct models
+#from django.contrib.auth.decorators import login_required
 
+#@login_required(login_url='login')
 def index(request):
-    context = {}
+    if not request.user.is_authenticated():
+        context = {'user':False}
+    else:
+        context = {'user':True}
     return render(request, 'gameshop/index.html', context)
 
 ''' TODO write corresponding templates!
