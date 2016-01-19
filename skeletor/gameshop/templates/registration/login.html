@@ -20,19 +20,19 @@
             <input type="hidden" name="next" value="{{ next }}" />
         {% endif %}
 
-        <div class="control-group">
-            <label class="control-label" for="username">Username</label>
-            <div class="controls" style="color:black;">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <div class="controls">
                 <input type="text" id="username" name="username"  placeholder="Username">
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="password">Password</label>
-            <div class="controls" style="color:black;">
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="controls">
                 <input type="password" name="password" id="password" placeholder="Password">
             </div>
         </div>
-        <div class="control-group" style="padding:10px;">
+        <div class="form-group" style="padding:10px;">
             <div class="controls">
                 <button type="submit" class="btn">Login</button>
             </div>
@@ -40,7 +40,7 @@
         </form>
         {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-<p><a href="/register">Registeration</p>
+<p><a href="/register">Registeration</a></p>
 </div>
 
 
