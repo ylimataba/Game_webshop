@@ -12,11 +12,14 @@
 
 {% block content %}
     <!-- First Container -->
-	<div class="container-fluid bg-1 text-center">
     
-    <img src="{% static 'imgs/Skeletor.png' %}" class="img-responsive img-circle margin" style="display:inline" alt="Skeletor" width="350" height="350">
+	<div class="container-fluid bg-1 text-center">
+    	{% if not user %}
+    		{% include "registration/login.html" %}
+		{% endif %}
+    	<img src="{% static 'imgs/Skeletor.png' %}" class="img-responsive img-circle margin" style="display:inline" alt="Skeletor" width="350" height="350">
   
-</div>
+	</div>
 {% endblock %}
 
 {% block footer %}
