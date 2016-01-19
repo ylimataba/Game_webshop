@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Game, User, Score
+from .models import Game, User, Score #TODO import correct models
 
 def index(request):
     context = {}
