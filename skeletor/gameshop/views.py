@@ -24,3 +24,5 @@ def play(request):
     return render(request, 'gameshop/play.html', context)
 
 
+
+
