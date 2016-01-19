@@ -6,23 +6,15 @@
     index page
 {% endblock %}
 
-{% block header %}
-    {% include "menu.html" %}
-    
-{% endblock %}
-
 {% block content %}
     <!-- First Container -->
     
 	<div class="container-fluid bg-1 text-center">
+    	
+    	<img src="{% static 'imgs/Skeletor.png' %}" class="img-responsive img-circle margin" style="display:inline" alt="Skeletor" width="300" height="300">
     	{% if not user %}
     		{% include "registration/login.html" %}
 		{% endif %}
-    	<img src="{% static 'imgs/Skeletor.png' %}" class="img-responsive img-circle margin" style="display:inline" alt="Skeletor" width="350" height="350">
   
 	</div>
-{% endblock %}
-
-{% block footer %}
-    {% include "footer.html" %}
 {% endblock %}
