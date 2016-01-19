@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from .models import Score, Game, Gamer, Developer
+from .forms import RegistrationForm
+from django.http import HttpResponseRedirect    
+from django.contrib import auth                 
+from django.core.context_processors import csrf 
 
 def index(request):
     if not request.user.is_authenticated():
@@ -9,8 +13,15 @@ def index(request):
     return render(request, 'gameshop/index.html', context)
 
 def register(request):
-    context = {}
-    return render(request, 'gameshop/register.html', context)
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    args = {}
+    args.update(csrf(request))
+    args['form'] = RegistrationForm()
+    return render(request, 'gameshop/register.html', args)
 
 def profile(request):
     context = {}
