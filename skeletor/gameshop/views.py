@@ -4,6 +4,7 @@ from .forms import RegistrationForm
 from django.http import HttpResponseRedirect    
 from django.contrib import auth                 
 from django.core.context_processors import csrf 
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     if not request.user.is_authenticated():
@@ -23,6 +24,7 @@ def register(request):
     args['form'] = RegistrationForm()
     return render(request, 'gameshop/register.html', args)
 
+@login_required(login_url='/')
 def profile(request):
     context = {}
     return render(request, 'gameshop/profile.html', context)
@@ -31,6 +33,7 @@ def shop(request):
     context = {}
     return render(request, 'gameshop/shop.html', context)
 
+@login_required(login_url='/')
 def play(request):
     context = {}
     return render(request, 'gameshop/play.html', context)
