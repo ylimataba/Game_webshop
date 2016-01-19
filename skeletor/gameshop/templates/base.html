@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>{% block title %}Test title{% endblock %}</title>
+        <title>{% block title %}Override with block title{% endblock %}</title>
         {% block header %}
         {% endblock %}
     </head>
     <body>
         {% block content %}
-        Test content.
+        Override this with <code>block content</code> in other templates.
         {% endblock %}
     </body>
 </html>
