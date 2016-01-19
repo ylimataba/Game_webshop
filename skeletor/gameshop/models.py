@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import gameshop.genre as game_genres #HUOM!
+import gameshop.genre as game_genres #HUOM! 
 
 class Score(models.Model):
 	"""Model to keep all the scores in database"""

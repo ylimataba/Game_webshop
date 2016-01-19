@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Game, User, Score
+from .models import Score, Game, Gamer, Developer
 
 def index(request):
     context = {}
     return render(request, 'gameshop/index.html', context)
 
-''' TODO write corresponding templates!
+''' TODO write corresponding templates!'''
 
 def register(request):
     context = {}
@@ -23,4 +23,4 @@ def play(request):
     context = {}
     return render(request, 'gameshop/play.html', context)
 
-'''
+
