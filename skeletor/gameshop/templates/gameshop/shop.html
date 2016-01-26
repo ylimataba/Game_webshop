@@ -20,7 +20,10 @@
         {% if game in user.gamer.library.all %}
             <a href="#">Play</a>
         {% else %}
-            <a href="#">Buy</a>
+            <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
+                {{ form }}
+                <input type='submit' value='Buy'/>
+            </form>
         {% endif %}
         <br>
         {% endfor %}
