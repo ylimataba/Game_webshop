@@ -7,10 +7,7 @@ from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    if not request.user.is_authenticated():
-        context = {'user':False}
-    else:
-        context = {'user':True}
+    context = {'user':request.user}
     return render(request, 'gameshop/index.html', context)
 
 def register(request):
@@ -30,7 +27,8 @@ def profile(request):
     return render(request, 'gameshop/profile.html', context)
 
 def shop(request):
-    context = {}
+    games = Game.objects.all()
+    context = {'games':games, 'user':request.user}
     return render(request, 'gameshop/shop.html', context)
 
 @login_required(login_url='/')

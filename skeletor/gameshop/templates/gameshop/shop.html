@@ -9,5 +9,25 @@
 {% endblock %}
 
 {% block content %}
-<p>SHOP</p>
+<div class="container-fluid bg-1 text-center">
+    {% if user.is_authenticated %}
+        Logged in as {{ user.username }}.<br>
+    {% endif %}
+    {% if games %}
+        Games<br>
+        {% for game in games %}
+        {{ game.name }} - {{ game.description }}
+        {% if game in user.gamer.library.all %}
+            <a href="#">Play</a>
+        {% else %}
+            <a href="#">Buy</a>
+        {% endif %}
+        <br>
+        {% endfor %}
+    {% else %}
+        The store is empty at the moment.
+    {% endif %}
+
+
+</div>
 {% endblock %}
