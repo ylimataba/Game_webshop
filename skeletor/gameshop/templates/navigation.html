@@ -13,7 +13,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/shop">GAME SHOP</a></li>
           {%if user.is_authenticated %}
-            <li><a href="/play">PLAY</a></li>
+            <!--<li><a href="/play">PLAY</a></li>-->
             <li><a href="/profile">PROFILE</a></li>
             <li><a href="{% url 'logout' %}?next=/">LOGOUT</a></li>
           {% endif %}
