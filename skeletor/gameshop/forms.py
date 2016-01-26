@@ -29,3 +29,12 @@ class RegistrationForm(UserCreationForm):
             developer.save()
 
         return user
+
+class PaymentForm(forms.Form):
+    pid = forms.CharField(initial='mytestsale',widget = forms.HiddenInput())
+    sid = forms.CharField(initial='tester',widget = forms.HiddenInput())
+    success_url = forms.URLField(initial='http://localhost:8000/shop/success',widget = forms.HiddenInput())
+    cancel_url = forms.URLField(initial='http://localhost:8000/shop/cancel',widget = forms.HiddenInput())
+    error_url = forms.URLField(initial='http://localhost:8000/shop/error',widget = forms.HiddenInput())
+    checksum = forms.CharField(initial='a91552055bda336550a65c1964f8e013', widget = forms.HiddenInput())
+    amount = forms.FloatField(initial=15, widget = forms.HiddenInput())
