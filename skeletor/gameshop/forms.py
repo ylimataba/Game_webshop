@@ -1,6 +1,7 @@
 from django import forms            
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm      
+from .models import Gamer, Developer
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(required = True)
@@ -22,5 +23,9 @@ class RegistrationForm(UserCreationForm):
 
         if commit:
             user.save()
+            gamer = Gamer(user=user)
+            developer = Developer(user=user)
+            gamer.save()
+            developer.save()
 
         return user
