@@ -19,8 +19,10 @@
         {{ game.name }} - {{ game.description }}
         {% if game in user.gamer.library.all %}
             <a href="#">Play</a>
-        {% else %}
+        {% elif user.is_authenticated %}
             <a href="#">Buy</a>
+        {% else %}
+            <a href="/">Login</a>
         {% endif %}
         <br>
         {% endfor %}
