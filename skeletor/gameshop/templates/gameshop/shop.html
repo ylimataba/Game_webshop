@@ -19,18 +19,18 @@
         {{ game.name }} - {{ game.description }}
         {% if game in user.gamer.library.all %}
             <a href="#">Play</a>
-        {% else %}
+        {% elif user.is_authenticated %}
             <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
                 {{ form }}
                 <input type='submit' value='Buy'/>
             </form>
+        {% else %}
+            <a href="/">Login to buy games</a>
         {% endif %}
         <br>
         {% endfor %}
     {% else %}
         The store is empty at the moment.
     {% endif %}
-
-
 </div>
 {% endblock %}

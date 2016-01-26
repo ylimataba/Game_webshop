@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth                 
 from django.core.context_processors import csrf 
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 def index(request):
     context = {'user':request.user}
@@ -33,6 +34,20 @@ def shop(request):
     return render(request, 'gameshop/shop.html', context)
 
 @login_required(login_url='/')
-def play(request):
-    context = {}
+def play(request,game_id):
+    game=get_object_or_404(Game,id=game_id)
+    context = {'game':game}
     return render(request, 'gameshop/play.html', context)
+
+def shop_success(request):
+    context={}
+    return render(request,'gameshop/shop_success.html',context)
+
+def shop_cancel(request):
+    context={}
+    return render(request,'gameshop/shop_cancel.html',context)
+
+def shop_error(request):
+    context={}
+    return render(request,'gameshop/shop_error.html',context)
+
