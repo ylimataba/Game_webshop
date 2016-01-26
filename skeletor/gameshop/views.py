@@ -39,15 +39,21 @@ def play(request,game_id):
     context = {'game':game}
     return render(request, 'gameshop/play.html', context)
 
-def shop_success(request):
-    context={}
-    return render(request,'gameshop/shop_success.html',context)
+def payment(request):
+    if request.method == 'GET':
+        res=request.GET.get('result')
+        if res=='success':
+            template = 'gameshop/shop_success.html'
+            game_id=request.GET.get('game_id')
+            game=Game.objects.get(id=game_id)
+            user=request.user
+            user.gamer.library.add(game)
+            user.save()
+        elif res=='cancel':
+            template = 'gameshop/shop_cancel.html'
+        elif res=='success':
+            template = 'gameshop/shop_error.html'
+    context={'res':res}
+    return render(request, template, context)
 
-def shop_cancel(request):
-    context={}
-    return render(request,'gameshop/shop_cancel.html',context)
-
-def shop_error(request):
-    context={}
-    return render(request,'gameshop/shop_error.html',context)
 

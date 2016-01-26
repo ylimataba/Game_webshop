@@ -18,7 +18,7 @@
         {% for game in games %}
         {{ game.name }} - {{ game.description }}
         {% if game in user.gamer.library.all %}
-            <a href="#">Play</a>
+            <a href="/play/{{game.id}}">Play</a>
         {% elif user.is_authenticated %}
             <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
                 {{ form }}
