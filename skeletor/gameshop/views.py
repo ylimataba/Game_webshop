@@ -26,7 +26,7 @@ def register(request):
 
 @login_required(login_url='/')
 def profile(request):
-    context = {}
+    context = {'user':request.user}
     return render(request, 'gameshop/profile.html', context)
 
 def shop(request):
