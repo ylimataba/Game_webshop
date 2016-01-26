@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Score, Game, Gamer, Developer
-from .forms import RegistrationForm
+from .forms import RegistrationForm, PaymentForm
 from django.http import HttpResponseRedirect    
 from django.contrib import auth                 
 from django.core.context_processors import csrf 
@@ -27,8 +27,9 @@ def profile(request):
     return render(request, 'gameshop/profile.html', context)
 
 def shop(request):
+    form = PaymentForm
     games = Game.objects.all()
-    context = {'games':games, 'user':request.user}
+    context = {'games':games, 'user':request.user, 'form':form}
     return render(request, 'gameshop/shop.html', context)
 
 @login_required(login_url='/')
