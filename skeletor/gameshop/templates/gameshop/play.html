@@ -28,7 +28,7 @@ $(document).ready(function() {
 	      $('#scores').prepend(newItem);
 	      $.ajax({
 	      	url:'',
-	      	data: {'score': data.score, 'game_id': {{game.id}}},
+	      	data: {'score': data.score},
 	      	type: 'get',
 	      	});
 	  }
