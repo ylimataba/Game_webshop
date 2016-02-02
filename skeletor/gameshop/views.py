@@ -57,6 +57,10 @@ def shop(request):
 
 @login_required(login_url='/')
 def play(request,game_id):
+    if request.method=='GET':
+        score=request.GET.get('score')
+        #game_id=request.GET.get('game_id')
+        print(score)
     game=get_object_or_404(Game,id=game_id)
     context = {'game':game}
     return render(request, 'gameshop/play.html', context)
