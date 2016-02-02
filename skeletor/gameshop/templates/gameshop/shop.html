@@ -20,8 +20,9 @@
         {% if game in user.gamer.library.all %}
             <a href="/play/{{game.id}}">Play</a>
         {% elif user.is_authenticated %}
-            <form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
-                {{ form }}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input id="id_game_id" name="game_id" type="hidden" value="{{ game.id }}" />
                 <input type='submit' value='Buy'/>
             </form>
         {% else %}

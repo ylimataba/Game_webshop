@@ -31,11 +31,11 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class PaymentForm(forms.Form):
-    pid = forms.CharField(initial='mytestsale',widget = forms.HiddenInput())
-    sid = forms.CharField(initial='tester',widget = forms.HiddenInput())
-    success_url = forms.URLField(initial='http://localhost:8000/payment?game_id=1',widget = forms.HiddenInput())
-    cancel_url = forms.URLField(initial='http://localhost:8000/payment',widget = forms.HiddenInput())
-    error_url = forms.URLField(initial='http://localhost:8000/payment',widget = forms.HiddenInput())
-    checksum = forms.CharField(initial='a91552055bda336550a65c1964f8e013', widget = forms.HiddenInput())
-    amount = forms.FloatField(initial=15, widget = forms.HiddenInput())
-
+    pid = forms.CharField(widget = forms.HiddenInput())
+    sid = forms.CharField(widget = forms.HiddenInput())
+    success_url = forms.URLField(widget = forms.HiddenInput())
+    cancel_url = forms.URLField(widget = forms.HiddenInput())
+    error_url = forms.URLField(widget = forms.HiddenInput())
+    checksum = forms.CharField(widget = forms.HiddenInput())
+    amount = forms.FloatField(widget = forms.HiddenInput())
+    
