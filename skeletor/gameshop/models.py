@@ -9,7 +9,7 @@ class Score(models.Model):
     user = models.ForeignKey(User, related_name="UserScores")
 
     class Meta:
-        ordering = ["points"]
+        ordering = ["-points"]
 
 class Game(models.Model):
     """ Model to keep all the game infromation in database """

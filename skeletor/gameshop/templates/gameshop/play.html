@@ -27,16 +27,14 @@ $(document).ready(function() {
         var messageType=data.messageType;
           
         if (messageType==='SCORE') {
-            //Create a new list item based on the data
-            var newItem = '\n\t<li>' + (data.messageType || '') + '</li>';
-            //Add the item to the beginning of the actions list
-            $('#scores').prepend(newItem);
             $.ajax({
                 url:'',
                 data: {'score': data.score},
                 type: 'get',
             });
+            $('#tableContainer').load("/play/{{ game.id }}");
         }
+        /*
         else if (messageType==='SAVE') {
             //Create a new list item based on the data
             var newItem2 = '\n\t<li>' + (data.messageType || '') + '</li>';
@@ -59,7 +57,7 @@ $(document).ready(function() {
             var newItem5 = '\n\t<li>No message</li>';
             //Add the item to the beginning of the actions list
             $('#scores').prepend(newItem5);
-        }
+        }*/
     });
 });
 </script>
@@ -67,6 +65,8 @@ $(document).ready(function() {
     <iframe class="bg-3" id="encoder_iframe" src="{{game.source}}"></iframe>
     <ul id="scores">
     </ul>
+    <div id="tableContainer">
     {% include "gameshop/game_scores.html" %}
+    </div>
 </div>
 {% endblock %}

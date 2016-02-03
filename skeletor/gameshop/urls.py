@@ -9,6 +9,5 @@ urlpatterns = [
     url(r'^shop$', views.shop, name='shop'),
     url(r'^play/(?P<game_id>[0-9]+)/$', views.play, name='play'),
     url(r'^payment$', views.payment, name='payment'),
-    
 ]
 

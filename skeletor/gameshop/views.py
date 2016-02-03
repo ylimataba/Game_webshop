@@ -59,18 +59,19 @@ def shop(request):
 @login_required(login_url='/')
 def play(request,game_id):
     game=get_object_or_404(Game,id=game_id)
-    if request.is_ajax():
+    if request.is_ajax() and request.GET.get('score'):
         points = request.GET.get('score')
         user = request.user
         scr = Score(points=points, game=game, user=user)
         scr.save()
-        scores = Score.objects.fiter(game=game)
-        context = {'scores':scores}
+    elif request.is_ajax():
+        scores = Score.objects.filter(game=game)[:10]
+        context = {'game':game, 'scores':scores}
         return render(request, 'gameshop/game_scores.html', context)
-        
-
-    context = {'game':game}
-    return render(request, 'gameshop/play.html', context)
+    else:
+        scores = Score.objects.filter(game=game)[:10]
+        context = {'game':game, 'scores':scores}
+        return render(request, 'gameshop/play.html', context)
 
 def payment(request):
     context = {}
