@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Score, Game, Gamer, Developer
 from .forms import RegistrationForm, PaymentForm
 from hashlib import md5
+from django.contrib.auth.models import User
 
 def index(request):
     context = {'user':request.user}
@@ -57,11 +58,17 @@ def shop(request):
 
 @login_required(login_url='/')
 def play(request,game_id):
-    if request.method=='GET':
-        score=request.GET.get('score')
-        #game_id=request.GET.get('game_id')
-        print(score)
     game=get_object_or_404(Game,id=game_id)
+    if request.is_ajax():
+        points = request.GET.get('score')
+        user = request.user
+        scr = Score(points=points, game=game, user=user)
+        scr.save()
+        scores = Score.objects.fiter(game=game)
+        context = {'scores':scores}
+        return render(request, 'gameshop/game_scores.html', context)
+        
+
     context = {'game':game}
     return render(request, 'gameshop/play.html', context)
 

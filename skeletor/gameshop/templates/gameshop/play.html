@@ -13,51 +13,60 @@
 <script>
 /* global $ */
 $(document).ready(function() {
-	'use strict';
-	$(window).on('message', function(evt) {
-      //Note that messages from all origins are accepted
+    'use strict';
+    $(window).on('message', function(evt) {
+        //Note that only messages from game.source are accepted
+        var origin = evt.origin || evt.originalEvent.origin;
+        var game_origin = '{{ game.source }}'.split('/');
+        game_origin.pop();
+        if (origin !== game_origin.join('/'))
+            return;
 
-      //Get data from sent message
-      var data = evt.originalEvent.data;
-      var messageType=data.messageType;
-      
-      if (messageType==='SCORE') {
-	      //Create a new list item based on the data
-	      var newItem = '\n\t<li>' + (data.messageType || '') + '</li>';
-	      //Add the item to the beginning of the actions list
-	      $('#scores').prepend(newItem);
-	      $.ajax({
-	      	url:'',
-	      	data: {'score': data.score},
-	      	type: 'get',
-	      	});
-	  }
-  	else if (messageType==='SAVE') {
-	      //Create a new list item based on the data
-	      var newItem2 = '\n\t<li>' + (data.messageType || '') + '</li>';
-	      //Add the item to the beginning of the actions list
-	      $('#scores').prepend(newItem2);
-  		}
-  	else if (messageType==='LOAD_REQUEST') {
-	      //Create a new list item based on the data
-	      var newItem3 = '\n\t<li>' + (data.messageType || '') + '</li>';
-	      //Add the item to the beginning of the actions list
-	      $('#scores').prepend(newItem3);
-  		}
-  	else if (messageType==='SETTING') {
-	      //Create a new list item based on the data
-	      var newItem4 = '\n\t<li>' + (data.messageType || '') + '</li>';
-	      //Add the item to the beginning of the actions list
-	      $('#scores').prepend(newItem4);
-  		}
-  	else {//Create a new list item based on the data
-	      var newItem5 = '\n\t<li>No message</li>';
-	      //Add the item to the beginning of the actions list
-	      $('#scores').prepend(newItem5);}
-});
+        //Get data from sent message
+        var data = evt.originalEvent.data;
+        var messageType=data.messageType;
+          
+        if (messageType==='SCORE') {
+            //Create a new list item based on the data
+            var newItem = '\n\t<li>' + (data.messageType || '') + '</li>';
+            //Add the item to the beginning of the actions list
+            $('#scores').prepend(newItem);
+            $.ajax({
+                url:'',
+                data: {'score': data.score},
+                type: 'get',
+            });
+        }
+        else if (messageType==='SAVE') {
+            //Create a new list item based on the data
+            var newItem2 = '\n\t<li>' + (data.messageType || '') + '</li>';
+            //Add the item to the beginning of the actions list
+            $('#scores').prepend(newItem2);
+        }
+        else if (messageType==='LOAD_REQUEST') {
+            //Create a new list item based on the data
+            var newItem3 = '\n\t<li>' + (data.messageType || '') + '</li>';
+            //Add the item to the beginning of the actions list
+            $('#scores').prepend(newItem3);
+        }
+        else if (messageType==='SETTING') {
+            //Create a new list item based on the data
+            var newItem4 = '\n\t<li>' + (data.messageType || '') + '</li>';
+            //Add the item to the beginning of the actions list
+            $('#scores').prepend(newItem4);
+        }
+        else {//Create a new list item based on the data
+            var newItem5 = '\n\t<li>No message</li>';
+            //Add the item to the beginning of the actions list
+            $('#scores').prepend(newItem5);
+        }
+    });
 });
 </script>
-<iframe id="encoder_iframe" src="{{game.source}}"></iframe>
-<ul id="scores">
-</ul>
+<div class="container-fluid bg-1 text-center">
+    <iframe class="bg-3" id="encoder_iframe" src="{{game.source}}"></iframe>
+    <ul id="scores">
+    </ul>
+    {% include "gameshop/game_scores.html" %}
+</div>
 {% endblock %}
