@@ -1,0 +1,20 @@
+<table id='Scores'>
+	<thead>
+		<tr>
+			<th>username</th>
+			<th>points</th>
+		</tr>	
+	</thead>
+
+
+{% if scores %}
+	<tbody>
+		{% for score in scores %}
+		<tr>
+			<td>score.user.username</td>
+			<td>score.points</td>
+		</tr>
+		{% end for %}
+	</tbody>	
+	{% end if %}
+	</table>
