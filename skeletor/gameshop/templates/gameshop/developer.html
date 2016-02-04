@@ -10,10 +10,15 @@
 
 {% block content %}
 <div class="container-fluid bg-1 text-center">
-	<form style="color:red;" action="" method="POST">
-		{% csrf_token %}
-		{{form.as_ul}}
-		<input type='submit' value='Add game'/>
-	</form>
+    {% if inventory %}
+        Games<br>
+        {% for game in inventory %}
+        {{ game.name }} - {{ game.description }}
+        <br>
+        {% endfor %}
+    {% else %}
+        You have not added any games yet. 
+    {% endif %}
+    <a href="/add">Add game</a>
 </div>
 {% endblock %}
