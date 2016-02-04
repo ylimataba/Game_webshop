@@ -61,12 +61,15 @@ $(document).ready(function() {
     });
 });
 </script>
-<div class="container-fluid bg-1 text-center">
-    <iframe class="bg-3" id="encoder_iframe" src="{{game.source}}"></iframe>
-    <ul id="scores">
-    </ul>
-    <div id="tableContainer">
-    {% include "gameshop/game_scores.html" %}
+
+<div class="container-fluid bg-1 text-center" style="heigth:100%;">
+    <div class="row">
+        <div class="col-md-8">
+            <iframe class="bg-3" style="width:60%; height:350px;" id="encoder_iframe" src="{{game.source}}"></iframe>
+        </div>
+        <div class="col-md-4" id="tableContainer">
+            {% include "gameshop/game_scores.html" %}
+        </div>
     </div>
 </div>
 {% endblock %}
