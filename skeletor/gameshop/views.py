@@ -120,7 +120,7 @@ def add_game(request):
             game = form.save(commit=False)
             game.game_developer = request.user
             game.save()
-            return HttpResponseRedirect('')
+            return HttpResponseRedirect('/developer')
 
     form = GameForm()
     context = {'form' : form}
