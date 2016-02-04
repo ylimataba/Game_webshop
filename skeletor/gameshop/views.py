@@ -104,6 +104,24 @@ def payment(request):
     return render(request, template, context)
 
 def developer(request):
+    user = request.user
+    if hasattr(user, 'developer'):
+        inventory = user.developer.inventory.all()
+        context = {'inventory': inventory}
+        template = 'gameshop/developer.html'
+        return render(request, template, context)
+    else:
+        return HttpResponseRedirect('/')
+
+def add_game(request):
+    if request.method == 'POST':
+        form = GameForm(request.POST)
+        if form.is_valid():
+            game = form.save(commit=False)
+            game.game_developer = request.user
+            game.save()
+            return HttpResponseRedirect('')
+
     form = GameForm()
     context = {'form' : form}
     return render(request, 'gameshop/developer.html', context)

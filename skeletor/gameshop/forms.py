@@ -1,7 +1,7 @@
 from django import forms            
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm      
-from .models import Gamer, Developer
+from .models import Gamer, Developer, Game
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(required = True)
@@ -44,6 +44,6 @@ class PaymentForm(forms.Form):
 class GameForm(forms.ModelForm):
     class Meta:
         model = Game
-        fields = ['name', 'description', 'release_date', 'publisher', 'genre', 'source', 'price']
+        fields = ['name', 'description', 'publisher', 'genre', 'source', 'price']
 
 
