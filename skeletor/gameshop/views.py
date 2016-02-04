@@ -124,4 +124,4 @@ def add_game(request):
 
     form = GameForm()
     context = {'form' : form}
-    return render(request, 'gameshop/developer.html', context)
+    return render(request, 'gameshop/add_game.html', context)
