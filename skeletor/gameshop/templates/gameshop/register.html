@@ -11,12 +11,13 @@
 
 {% block content %}
     <!-- First Container -->
-    
-	<div class="container-fluid bg-1 text-center" style="color:red;">
+    <div class="container-fluid bg-1 text-center">
+        <div style="background-color:rgba(255, 255, 255, 0.2);padding:20px;">
         <form action="/register" method="post">
-        {% csrf_token %}
-        {{ form.as_ul }}
-        <input type="submit" value="Submit" />
-        </form>  
-	</div>
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+    </div>
 {% endblock %}
