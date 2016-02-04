@@ -40,6 +40,6 @@ class Developer(models.Model):
     """ Extends User model with user.developer field """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     def get_games(self):
-        return self.DeveloperGames.all()
+        return self.user.DeveloperGames.all()
     inventory = property(get_games)
 	
