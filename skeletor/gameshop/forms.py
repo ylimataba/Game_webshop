@@ -8,7 +8,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required = True)
     first_name = forms.CharField(required = False)
     last_name = forms.CharField(required = False)
-    #birthday = forms.DateField(required = False)
+    developer = forms.BooleanField(label="Register as developer")
 
     class Meta:
         model = User
@@ -19,14 +19,16 @@ class RegistrationForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        #user.birthday = self.cleaned_data['Birthday']
 
         if commit:
             user.save()
-            gamer = Gamer(user=user)
-            developer = Developer(user=user)
-            gamer.save()
-            developer.save()
+            if self.cleaned_data['developer']:
+                developer = Developer(user=user)
+                developer.save()
+            else:
+                gamer = Gamer(user=user)
+                gamer.save()
+
 
         return user
 
@@ -39,3 +41,9 @@ class PaymentForm(forms.Form):
     checksum = forms.CharField(widget = forms.HiddenInput())
     amount = forms.FloatField(widget = forms.HiddenInput())
     
+class GameForm(forms.ModelForm):
+    class Meta:
+        model = Game
+        fields = ['name', 'description', 'release_date', 'publisher', 'genre', 'source', 'price']
+
+

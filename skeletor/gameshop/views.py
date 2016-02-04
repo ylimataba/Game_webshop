@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf 
 from django.contrib.auth.decorators import login_required
 from .models import Score, Game, Gamer, Developer
-from .forms import RegistrationForm, PaymentForm
+from .forms import RegistrationForm, PaymentForm, GameForm
 from hashlib import md5
 from django.contrib.auth.models import User
 
@@ -59,19 +59,22 @@ def shop(request):
 @login_required(login_url='/')
 def play(request,game_id):
     game=get_object_or_404(Game,id=game_id)
-    if request.is_ajax() and request.GET.get('score'):
-        points = request.GET.get('score')
-        user = request.user
-        scr = Score(points=points, game=game, user=user)
-        scr.save()
-    elif request.is_ajax():
-        scores = Score.objects.filter(game=game)[:10]
-        context = {'game':game, 'scores':scores}
-        return render(request, 'gameshop/game_scores.html', context)
+    user = request.user
+    if game in user.gamer.library.all():
+        if request.is_ajax() and request.GET.get('score'):
+            points = request.GET.get('score')
+            scr = Score(points=points, game=game, user=user)
+            scr.save()
+        elif request.is_ajax():
+            scores = Score.objects.filter(game=game)[:10]
+            context = {'game':game, 'scores':scores}
+            return render(request, 'gameshop/game_scores.html', context)
+        else:
+            scores = Score.objects.filter(game=game)[:10]
+            context = {'game':game, 'scores':scores}
+            return render(request, 'gameshop/play.html', context)
     else:
-        scores = Score.objects.filter(game=game)[:10]
-        context = {'game':game, 'scores':scores}
-        return render(request, 'gameshop/play.html', context)
+        return HttpResponseRedirect('/')
 
 def payment(request):
     context = {}
@@ -100,3 +103,7 @@ def payment(request):
         context['res'] = res
     return render(request, template, context)
 
+def developer(request):
+    form = GameForm()
+    context = {'form' : form}
+    return render(request, 'gameshop/developer.html', context)
