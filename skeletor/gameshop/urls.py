@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^payment$', views.payment, name='payment'),
     url(r'^developer$', views.developer, name='developer'),
     url(r'^add$', views.add_game, name='add'),
+    url(r'^modify/(?P<game_id>[0-9]+)/$', views.modify_game, name='modify'),
 ]
 

@@ -105,23 +105,41 @@ def payment(request):
 
 def developer(request):
     user = request.user
+    context = {'user' : user}
     if hasattr(user, 'developer'):
         inventory = user.developer.inventory.all()
-        context = {'inventory': inventory}
-        template = 'gameshop/developer.html'
-        return render(request, template, context)
+        context['inventory'] = inventory
+    template = 'gameshop/developer.html'
+    return render(request, template, context)
+
+def add_game(request):
+    user = request.user
+    if hasattr(user, 'developer'):
+        if request.method == 'POST':
+            form = GameForm(request.POST)
+            if form.is_valid():
+                game = form.save(commit=False)
+                game.game_developer = request.user
+                game.save()
+                return HttpResponseRedirect('/developer')
+
+        form = GameForm()
+        context = {'form' : form}
+        return render(request, 'gameshop/add_game.html', context)
     else:
         return HttpResponseRedirect('/')
 
-def add_game(request):
-    if request.method == 'POST':
-        form = GameForm(request.POST)
-        if form.is_valid():
-            game = form.save(commit=False)
-            game.game_developer = request.user
-            game.save()
-            return HttpResponseRedirect('/developer')
-
-    form = GameForm()
-    context = {'form' : form}
-    return render(request, 'gameshop/add_game.html', context)
+def modify_game(request, game_id):
+    user = request.user
+    game = get_object_or_404(Game, id=game_id)
+    if hasattr(user, 'developer'):
+        if game in user.developer.inventory.all():
+            form = GameForm(request.POST or None, instance = game)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/developer')
+            else:
+                context = {'form' : form, 'game_id' : game_id}
+                template = 'gameshop/modify_game.html'
+                return render(request, template, context)
+    return HttpResponseRedirect('/')

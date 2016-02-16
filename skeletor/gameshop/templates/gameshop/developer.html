@@ -13,7 +13,7 @@
     {% if inventory %}
         Games<br>
         {% for game in inventory %}
-        {{ game.name }} - {{ game.description }}
+        {{ game.name }} - {{ game.description }} <a href="/modify/{{ game.id }}">modify</a>
         <br>
         {% endfor %}
     {% else %}
