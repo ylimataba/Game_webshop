@@ -47,17 +47,12 @@ $(document).ready(function() {
             //Add the item to the beginning of the actions list
             $('#scores').prepend(newItem3);
         }
+        */
         else if (messageType==='SETTING') {
-            //Create a new list item based on the data
-            var newItem4 = '\n\t<li>' + (data.messageType || '') + '</li>';
-            //Add the item to the beginning of the actions list
-            $('#scores').prepend(newItem4);
+            // set iframe size
+            $('#game_iframe').css('width', data.options['width'])
+            $('#game_iframe').css('height', data.options['height'])
         }
-        else {//Create a new list item based on the data
-            var newItem5 = '\n\t<li>No message</li>';
-            //Add the item to the beginning of the actions list
-            $('#scores').prepend(newItem5);
-        }*/
     });
 });
 </script>
@@ -65,7 +60,7 @@ $(document).ready(function() {
 <div class="container-fluid bg-1 text-center" style="heigth:100%;">
     <div class="row">
         <div class="col-md-8">
-            <iframe class="bg-3" style="width:60%; height:350px;" id="encoder_iframe" src="{{game.source}}"></iframe>
+            <iframe class="bg-3" id="game_iframe" src="{{game.source}}"></iframe>
         </div>
         <div class="col-md-4" id="tableContainer">
             {% include "gameshop/game_scores.html" %}
