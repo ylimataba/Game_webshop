@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth                 
 from django.core.context_processors import csrf 
 from django.contrib.auth.decorators import login_required
-from .models import Score, Game, Gamer, Developer
+from .models import Score, Game, Gamer, Developer, GameSave
 from .forms import RegistrationForm, PaymentForm, GameForm
 from hashlib import md5
 from django.contrib.auth.models import User
@@ -61,14 +61,21 @@ def play(request,game_id):
     game=get_object_or_404(Game,id=game_id)
     user = request.user
     if game in user.gamer.library.all():
-        if request.is_ajax() and request.GET.get('score'):
-            points = request.GET.get('score')
-            scr = Score(points=points, game=game, user=user)
-            scr.save()
-        elif request.is_ajax():
-            scores = Score.objects.filter(game=game)[:10]
-            context = {'game':game, 'scores':scores}
-            return render(request, 'gameshop/game_scores.html', context)
+        if request.is_ajax():
+            if request.GET.get('messageType')=='SCORE':
+                points = request.GET.get('score')
+                scr = Score(points=points, game=game, user=user)
+                scr.save()
+            elif request.GET.get('messageType')=='SAVE':
+                gameState=request.GET.get('GameState')
+                saving=GameSave(gameState=gameState, game=game, user=user)
+                saving.save()
+            #elif request.GET.get('messageType')=='LOAD_REQUEST':
+
+            else: 
+                scores = Score.objects.filter(game=game)[:10]
+                context = {'game':game, 'scores':scores}
+                return render(request, 'gameshop/game_scores.html', context)
         else:
             scores = Score.objects.filter(game=game)[:10]
             context = {'game':game, 'scores':scores}

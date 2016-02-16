@@ -29,25 +29,29 @@ $(document).ready(function() {
         if (messageType==='SCORE') {
             $.ajax({
                 url:'',
-                data: {'score': data.score},
+                data: {'score': data.score, 'messageType':data.messageType},
                 type: 'get',
             });
             $('#tableContainer').load("/play/{{ game.id }}");
         }
-        /*
+        
         else if (messageType==='SAVE') {
-            //Create a new list item based on the data
-            var newItem2 = '\n\t<li>' + (data.messageType || '') + '</li>';
-            //Add the item to the beginning of the actions list
-            $('#scores').prepend(newItem2);
+            $.ajax({
+                url:'',
+                data: {'GameState': JSON.stringify(data.gameState),'messageType':data.messageType},
+                type: 'get',
+            });
         }
-        else if (messageType==='LOAD_REQUEST') {
-            //Create a new list item based on the data
-            var newItem3 = '\n\t<li>' + (data.messageType || '') + '</li>';
-            //Add the item to the beginning of the actions list
-            $('#scores').prepend(newItem3);
-        }
-        */
+        
+        /*else if (messageType==='LOAD_REQUEST') {
+            $.ajax({
+                url:'',
+                data: {'messageType': data.messageType},
+                type:'get',
+            });
+            
+        }*/
+        
         else if (messageType==='SETTING') {
             // set iframe size
             $('#game_iframe').css('width', data.options['width'])

@@ -43,3 +43,12 @@ class Developer(models.Model):
         return self.user.DeveloperGames.all()
     inventory = property(get_games)
 	
+class GameSave(models.Model):
+    gameState=models.CharField(max_length=2250)
+    game=models.ForeignKey('Game')
+    user=models.ForeignKey(User)
+    saveTime=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=["saveTime"]
+
