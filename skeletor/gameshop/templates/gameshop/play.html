@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<script>
+<script type="text/javascript">
 /* global $ */
 $(document).ready(function() {
     'use strict';
@@ -26,31 +26,26 @@ $(document).ready(function() {
         var data = evt.originalEvent.data;
         var messageType=data.messageType;
           
-        if (messageType==='SCORE') {
-            $.ajax({
-                url:'',
-                data: {'score': data.score, 'messageType':data.messageType},
-                type: 'get',
+        if (messageType === 'SAVE'){
+            var tmp = { messageType: messageType,
+                gameState : JSON.stringify(data.gameState)};
+            data = tmp;
+            }
+
+        $.ajax({
+            url:'',
+            data: data,
+            type: 'get',
+            success: function(result) {
+                if (result.messageType === 'LOAD'){
+                    evt.originalEvent.source.postMessage(result, "*")
+                    }
+                }
             });
+
+        if (messageType==='SCORE') {
             $('#tableContainer').load("/play/{{ game.id }}");
         }
-        
-        else if (messageType==='SAVE') {
-            $.ajax({
-                url:'',
-                data: {'GameState': JSON.stringify(data.gameState),'messageType':data.messageType},
-                type: 'get',
-            });
-        }
-        
-        /*else if (messageType==='LOAD_REQUEST') {
-            $.ajax({
-                url:'',
-                data: {'messageType': data.messageType},
-                type:'get',
-            });
-            
-        }*/
         
         else if (messageType==='SETTING') {
             // set iframe size

@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect    
+from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.http import HttpResponseRedirect, HttpResponse   
 from django.contrib import auth                 
 from django.core.context_processors import csrf 
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,7 @@ from .models import Score, Game, Gamer, Developer, GameSave
 from .forms import RegistrationForm, PaymentForm, GameForm
 from hashlib import md5
 from django.contrib.auth.models import User
+import json
 
 def index(request):
     context = {'user':request.user}
@@ -66,12 +67,24 @@ def play(request,game_id):
                 points = request.GET.get('score')
                 scr = Score(points=points, game=game, user=user)
                 scr.save()
+                response_data = {'message': 'SUCCESS'}
+                json_data = json.dumps(response_data)
+                return HttpResponse(json_data, content_type="application/json")
+
             elif request.GET.get('messageType')=='SAVE':
-                gameState=request.GET.get('GameState')
+                gameState = request.GET.get('gameState')
                 saving=GameSave(gameState=gameState, game=game, user=user)
                 saving.save()
-            #elif request.GET.get('messageType')=='LOAD_REQUEST':
+                response_data = {'message': 'SUCCESS'}
+                json_data = json.dumps(response_data)
+                return HttpResponse(json_data, content_type="application/json")
 
+            elif request.GET.get('messageType')=='LOAD_REQUEST':
+                saving = get_list_or_404(GameSave, game=game, user=user)[0]
+                gameState = saving.gameState
+                response_data = {'messageType': 'LOAD', 'gameState': json.loads(gameState)}
+                json_data = json.dumps(response_data)
+                return HttpResponse(json_data, content_type="application/json")
             else: 
                 scores = Score.objects.filter(game=game)[:10]
                 context = {'game':game, 'scores':scores}

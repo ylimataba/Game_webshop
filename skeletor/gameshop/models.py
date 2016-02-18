@@ -50,5 +50,5 @@ class GameSave(models.Model):
     saveTime=models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering=["saveTime"]
+        ordering=["-saveTime"]
 
