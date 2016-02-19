@@ -40,7 +40,12 @@ class Gamer(models.Model):
     """ Extend User model with user.developer field """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     library = models.ManyToManyField("Game")
-
+    def addGame(self,game):
+        self.library.add(game)
+        sale=GameSale(user=self.user, game=game, gamePrice=game.price)
+        sale.save()
+        self.save()
+    
     def __str__(self):
         return self.user.username
 
@@ -66,3 +71,9 @@ class GameSave(models.Model):
     
     def __str__(self):
         return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.saveTime)
+
+class GameSale(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    game=models.ForeignKey('Game')
+    timeBought=models.DateTimeField(auto_now_add=True)
+    gamePrice=models.FloatField()

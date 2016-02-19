@@ -112,8 +112,7 @@ def payment(request):
                 game = get_object_or_404(Game, name=game_name)
                 template = 'gameshop/shop_success.html'
                 user=request.user
-                user.gamer.library.add(game)
-                user.save()
+                user.gamer.addGame(game)
             else:
                 template = 'gameshop/shop_error.html'
         elif res=='cancel':
