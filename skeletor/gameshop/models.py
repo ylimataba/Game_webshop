@@ -73,7 +73,7 @@ class GameSave(models.Model):
         return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.saveTime)
 
 class GameSale(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
     game=models.ForeignKey('Game')
     timeBought=models.DateTimeField(auto_now_add=True)
     gamePrice=models.FloatField()

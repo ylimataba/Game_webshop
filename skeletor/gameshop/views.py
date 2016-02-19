@@ -162,3 +162,11 @@ def modify_game(request, game_id):
                 template = 'gameshop/modify_game.html'
                 return render(request, template, context)
     return HttpResponseRedirect('/')
+
+def remove_game(request, game_id):
+    user=request.user
+    game=get_object_or_404(Game, id=game_id)
+    if hasattr(user, 'developer'):
+        if game in user.developer.inventory.all():
+            game.delete()
+    return HttpResponseRedirect('/developer')

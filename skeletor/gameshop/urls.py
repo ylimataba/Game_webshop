@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^developer$', views.developer, name='developer'),
     url(r'^add$', views.add_game, name='add'),
     url(r'^modify/(?P<game_id>[0-9]+)/$', views.modify_game, name='modify'),
+    url(r'^remove/(?P<game_id>[0-9]+)/$', views.remove_game, name='remove'),
+
 ]
 
