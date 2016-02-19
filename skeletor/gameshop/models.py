@@ -11,6 +11,9 @@ class Score(models.Model):
     class Meta:
         ordering = ["-points"]
 
+    def __str__(self):
+        return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.points)
+
 class Game(models.Model):
     """ Model to keep all the game infromation in database """
     name = models.CharField(max_length=225, unique=True)
@@ -30,10 +33,16 @@ class Game(models.Model):
     class Meta:
         ordering =["name"]
 
+    def __str__(self):
+        return self.name
+
 class Gamer(models.Model):
     """ Extend User model with user.developer field """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     library = models.ManyToManyField("Game")
+
+    def __str__(self):
+        return self.user.username
 
 
 class Developer(models.Model):
@@ -42,6 +51,9 @@ class Developer(models.Model):
     def get_games(self):
         return self.user.DeveloperGames.all()
     inventory = property(get_games)
+
+    def __str__(self):
+        return self.user.username
 	
 class GameSave(models.Model):
     gameState=models.CharField(max_length=2250)
@@ -51,4 +63,6 @@ class GameSave(models.Model):
 
     class Meta:
         ordering=["-saveTime"]
-
+    
+    def __str__(self):
+        return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.saveTime)
