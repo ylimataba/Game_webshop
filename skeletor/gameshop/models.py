@@ -77,3 +77,6 @@ class GameSale(models.Model):
     game=models.ForeignKey('Game')
     timeBought=models.DateTimeField(auto_now_add=True)
     gamePrice=models.FloatField()
+    
+    def __str__(self):
+        return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.timeBought)
