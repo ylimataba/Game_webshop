@@ -8,7 +8,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required = True)
     first_name = forms.CharField(required = False)
     last_name = forms.CharField(required = False)
-    developer = forms.BooleanField(label="Register as developer")
+    developer = forms.BooleanField(label="Register as developer", required = False)
 
     class Meta:
         model = User
@@ -21,13 +21,13 @@ class RegistrationForm(UserCreationForm):
         user.last_name = self.cleaned_data['last_name']
 
         if commit:
+            print('saving user')
             user.save()
             if self.cleaned_data['developer']:
                 developer = Developer(user=user)
                 developer.save()
-            else:
-                gamer = Gamer(user=user)
-                gamer.save()
+            gamer = Gamer(user=user)
+            gamer.save()
 
 
         return user
