@@ -12,6 +12,9 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
             <li><a href="{% url 'shop:shop' %}">GAME SHOP</a></li>
+            {% if user.developer %}
+            <li><a href="{% url 'shop:developer' %}">DEVELOPER</a></li>
+            {% endif %}
             {% if user.is_authenticated %}
             <!--<li><a href="/play">PLAY</a></li>-->
             <li><a href="{% url 'shop:profile' %}">PROFILE</a></li>

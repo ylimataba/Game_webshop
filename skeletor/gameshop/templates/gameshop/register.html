@@ -13,7 +13,7 @@
     <!-- First Container -->
     <div class="container-fluid bg-1 text-center">
         <div style="background-color:rgba(255, 255, 255, 0.2);padding:20px;">
-        <form action="" method="post">
+        <form action="" method="post" style="color:red;">
             {% csrf_token %}
             {{ form.as_ul }}
             <input type="submit" value="Submit" />

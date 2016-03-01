@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm      
 from .models import Gamer, Developer, Game
 
+
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(required = True)
     email = forms.EmailField(required = True)
