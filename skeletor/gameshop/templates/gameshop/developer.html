@@ -21,5 +21,13 @@
         You have not added any games yet. 
     {% endif %}
     <a href="{% url 'shop:add' %}">Add game</a>
+    <br>
+    Game Statistics
+    <br>
+    {% if statistics %}
+        {% for sale in statistics %}
+        {{sale.game.name}} - {{sale.gamePrice}} - {{sale.timeBought}} 
+        {% endfor %}
+    {% endif %}    
 </div>
 {% endblock %}

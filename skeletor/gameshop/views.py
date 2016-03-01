@@ -130,7 +130,10 @@ def developer(request):
     if hasattr(user, 'developer'):
         inventory = user.developer.inventory.all()
         context['inventory'] = inventory
+        statistics=user.developer.statistics
+        context['statistics'] = statistics
     template = 'gameshop/developer.html'
+
     return render(request, template, context)
 
 def add_game(request):
@@ -172,3 +175,4 @@ def remove_game(request, game_id):
         if game in user.developer.inventory.all():
             game.delete()
     return HttpResponseRedirect('/developer')
+

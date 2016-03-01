@@ -42,7 +42,7 @@ class Gamer(models.Model):
     library = models.ManyToManyField("Game")
     def addGame(self,game):
         self.library.add(game)
-        sale=GameSale(user=self.user, game=game, gamePrice=game.price)
+        sale=GameSale(game=game, gamePrice=game.price)
         sale.save()
         self.save()
     
@@ -56,6 +56,13 @@ class Developer(models.Model):
     def get_games(self):
         return self.user.DeveloperGames.all()
     inventory = property(get_games)
+    def game_statistics(self):
+        statistics=[]
+        for game in self.inventory:
+            gamesales=GameSale.objects.filter(game=game)
+            statistics.extend(gamesales)
+        return statistics
+    statistics=property(game_statistics)
 
     def __str__(self):
         return self.user.username
@@ -73,10 +80,9 @@ class GameSave(models.Model):
         return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.saveTime)
 
 class GameSale(models.Model):
-    user = models.ForeignKey(User)
     game=models.ForeignKey('Game')
     timeBought=models.DateTimeField(auto_now_add=True)
     gamePrice=models.FloatField()
     
     def __str__(self):
-        return "{0}-{1}-{2}".format(self.game.name, self.user.username, self.timeBought)
+        return "{0}-{1}".format(self.game.name, self.timeBought)
