@@ -27,6 +27,7 @@
     {% if statistics %}
         {% for sale in statistics %}
         {{sale.game.name}} - {{sale.gamePrice}} - {{sale.timeBought}} 
+        <br>
         {% endfor %}
     {% endif %}    
 </div>
