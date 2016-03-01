@@ -44,7 +44,7 @@ $(document).ready(function() {
             });
 
         if (messageType==='SCORE') {
-            $('#tableContainer').load("/play/{{ game.id }}");
+            $('#tableContainer').load("{% url 'shop:play' game.id %}");
         }
         
         else if (messageType==='SETTING') {

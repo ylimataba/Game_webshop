@@ -13,13 +13,13 @@
     {% if inventory %}
         Games<br>
         {% for game in inventory %}
-        {{ game.name }} - {{ game.description }} <a href="/modify/{{ game.id }}">modify</a>
-         <a href="/remove/{{ game.id }}">remove</a>
+        {{ game.name }} - {{ game.description }} <a href="{% url 'shop:modify' game.id %}">modify</a>
+        <a href="{% url 'shop:remove' game.id %}">remove</a>
         <br>
         {% endfor %}
     {% else %}
         You have not added any games yet. 
     {% endif %}
-    <a href="/add">Add game</a>
+    <a href="{% url 'shop:add' %}">Add game</a>
 </div>
 {% endblock %}

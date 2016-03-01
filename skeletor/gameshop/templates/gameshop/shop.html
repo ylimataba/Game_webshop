@@ -18,7 +18,7 @@
         {% for game in games %}
         {{ game.name }} - {{ game.description }}
         {% if game in user.gamer.library.all %}
-            <a href="/play/{{game.id}}">Play</a>
+        <a href="{% url 'shop:play' game.id %}">Play</a>
         {% elif user.is_authenticated %}
             <form action="" method="POST">
                 {% csrf_token %}
@@ -26,7 +26,7 @@
                 <input type='submit' value='Buy'/>
             </form>
         {% else %}
-            <a href="/">Login to buy games</a>
+            <a href="{% url 'shop:index' %}">Login to buy games</a>
         {% endif %}
         <br>
         {% endfor %}
