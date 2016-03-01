@@ -16,7 +16,9 @@ def index(request):
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
+        print("register")
         if form.is_valid():
+            print("form is is_valid")
             form.save()
             return HttpResponseRedirect('/')
     context = {}

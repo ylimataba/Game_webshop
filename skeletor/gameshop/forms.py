@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm      
 from .models import Gamer, Developer, Game
 
+
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(required = True)
     email = forms.EmailField(required = True)
     first_name = forms.CharField(required = False)
     last_name = forms.CharField(required = False)
-    developer = forms.BooleanField(label="Register as developer")
+    developer = forms.BooleanField(label="Register as developer", required=False)
 
     class Meta:
         model = User
@@ -25,9 +26,8 @@ class RegistrationForm(UserCreationForm):
             if self.cleaned_data['developer']:
                 developer = Developer(user=user)
                 developer.save()
-            else:
-                gamer = Gamer(user=user)
-                gamer.save()
+            gamer = Gamer(user=user)
+            gamer.save()
 
 
         return user
