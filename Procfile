@@ -1,1 +1,1 @@
-web: gunicorn skeletor.wsgi --log-file -
+web: gunicorn --pythonpath skeletor skeletor.wsgi --log-file -
