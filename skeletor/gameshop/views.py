@@ -10,6 +10,9 @@ from django.contrib.auth.models import User
 import json
 import gameshop.genre as game_genres  
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
+
+
 def index(request):
     context = {'user':request.user}
     return render(request, 'gameshop/index.html', context)
@@ -42,14 +45,17 @@ def shop(request):
         checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, secret_key)
         m = md5(checksumstr.encode("ascii"))
         checksum = m.hexdigest()
+        uri = request.build_absolute_uri()
+        uri = uri.replace('shop','payment')
+        print(uri)
         data = {
                 'amount' : amount,
                 'checksum' : checksum,
                 'pid' : pid,
                 'sid' : sid, 
-                'success_url' : 'http://localhost:8000/payment',
-                'cancel_url' : 'http://localhost:8000/payment',
-                'error_url' : 'http://localhost:8000/payment',
+                'success_url' : uri,
+                'cancel_url' : uri,
+                'error_url' : uri,
                 }
         form = PaymentForm(None, initial=data)
         context = {'form':form}
