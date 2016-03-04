@@ -25,6 +25,20 @@ class Game(models.Model):
     genre = models.CharField(max_length=225, choices=game_genres.GENRE_CHOICES)
     source = models.URLField(max_length=225, unique=True)
     price = models.FloatField()
+    
+
+    def sold_games(self):
+        sum_of_prices=0
+        soldgames=GameSale.objects.filter(game=self)
+        for game in soldgames:
+            sum_of_prices += game.gamePrice
+        return sum_of_prices
+    overall_sales = property(sold_games)
+    
+    def units(self):
+        soldgames=GameSale.objects.filter(game=self)
+        return len(soldgames)
+    units_sold=property(units)
 
     def get_gamescores(self):
         return self.GameScores.all()
@@ -57,10 +71,10 @@ class Developer(models.Model):
         return self.user.DeveloperGames.all()
     inventory = property(get_games)
     def game_statistics(self):
-        statistics=[]
+        statistics={}
         for game in self.inventory:
             gamesales=GameSale.objects.filter(game=game)
-            statistics.extend(gamesales)
+            statistics[game.name]=gamesales
         return statistics
     statistics=property(game_statistics)
 

@@ -16,7 +16,6 @@ Game shop
                 <tr>
                     <th>Name</th>
                     <th>Genre</th>
-                    <th>Price</th>
                     <th>Description</th>
                     <th>Publisher</th>
                     <th></th>
@@ -27,7 +26,6 @@ Game shop
                 <tr>
                     <td> {{ game.name }} </td>
                     <td> {{ game.get_genre_display }} </td>
-                    <td> {{ game.price }} </td>
                     <td> {{ game.description }} </td>
                     <td> {{ game.publisher }} </td>
                     {% if game in user.gamer.library.all %}
