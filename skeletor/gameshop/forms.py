@@ -2,18 +2,21 @@ from django import forms
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm      
 from .models import Gamer, Developer, Game
-
+from django.core import mail
+from hashlib import md5
 
 class RegistrationForm(UserCreationForm):
-    username = forms.CharField(required = True)
-    email = forms.EmailField(required = True)
-    first_name = forms.CharField(required = False)
-    last_name = forms.CharField(required = False)
+    username = forms.CharField(required = True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(required = True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    first_name = forms.CharField(required = False, widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
+    last_name = forms.CharField(required = False, widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
     developer = forms.BooleanField(label="Register as developer", required = False)
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),required = True)
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}),required = True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')        
+        fields = ['first_name','last_name','email','username', 'password1', 'password2',]
 
     def save(self,commit = True):   
         user = super(RegistrationForm, self).save(commit = False)
@@ -30,6 +33,16 @@ class RegistrationForm(UserCreationForm):
                 developer.save()
             gamer = Gamer(user=user)
             gamer.save()
+
+            secret_key = '6cd118b1432bf22942d93d784cd17084' # pitää muutaa http://payments.webcourse.niksula.hut.fi/key/
+            checksumstr = "username={}&email={}&token={}".format(user.username, user.email, secret_key)
+            m = md5(checksumstr.encode('ascii'))
+            checksum = m.hexdigest()
+            link = "http://localhost:8000/verify?&username={}&email={}&&checksum={}".format(user.username, user.email, checksum)
+            with mail.get_connection() as connection:
+                    mail.EmailMessage("Verify", link, "skeletor@skeletor.fi", [user.email],
+                                                  connection=connection).send()
+
 
         return user
 

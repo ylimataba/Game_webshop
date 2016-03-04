@@ -10,12 +10,23 @@ Register page
 {% block content %}
     <!-- First Container -->
     <div class="container-fluid bg-1 text-center">
-        <div style="background-color:rgba(255, 255, 255, 0.2);padding:20px;">
-        <form action="" method="post" style="color:red;">
+        <div> 
+            <form class="form-horizontal" action="" method="post"> 
             {% csrf_token %}
-            {{ form.as_ul }}
-            <input type="submit" value="Submit" />
-        </form>
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                <div class="controls">
+                    {{ field }}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="form-group" style="padding:10px;">
+                <div class="controls">
+                    <button type="submit" class="btn">Register</button>
+                </div>
+            </div>
+            </form>
     </div>
     </div>
 {% endblock %}

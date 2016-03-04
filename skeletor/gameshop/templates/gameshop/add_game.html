@@ -8,10 +8,21 @@ Game settings
 
 {% block content %}
 <div class="container-fluid bg-1 text-center">
-	<form style="color:red;" action="" method="POST">
+	<form class="form-horizontal" action="" method="POST">
 		{% csrf_token %}
-		{{form.as_ul}}
-		<input type='submit' value='Add game'/>
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    <div class="controls">
+                        {{ field }}
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="form-group" style="padding:10px;">
+                    <div class="controls">
+                        <button type="submit" class="btn">Save</button>
+                    </div>
+                </div>
 	</form>
 </div>
 {% endblock %}

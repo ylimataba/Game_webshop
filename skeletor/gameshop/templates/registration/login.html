@@ -4,9 +4,13 @@
 <div class="container-fluid bg-1 text-center">
 {% if form.non_field_errors %}
 {% for error in form.non_field_errors %}
-<p>{{ error }}</p>
-{% endfor %}
+{% if error == "This account is inactive." %}
+<p>You need to verify your email. Get <a href="{% url 'shop:verify' %}">a link</a> now.</p>
 {% else %}
+<p>{{ error }}</p>
+{% endif %}
+{% endfor %}
+{% elif form.errors  %}
 <p>Please enter a correct username and password. Note that both fields may be case-sensitive.</p>
 {% endif %}
 
@@ -44,9 +48,7 @@
             </div>
         </div>
         </form>
-        {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-<p><a href="{% url 'shop:register' %}">Registeration</a></p>
+<p><a href="{% url 'shop:register' %}">Register a new account</a></p>
 </div>
 </div>
 {% endblock %}

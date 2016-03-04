@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^modify/(?P<game_id>[0-9]+)/$', views.modify_game, name='modify'),
     url(r'^remove/(?P<game_id>[0-9]+)/$', views.remove_game, name='remove'),
     url(r'^search$', views.search, name='search'),
+    url(r'^verify$', views.verify_email, name='verify'),
 
 ]
 

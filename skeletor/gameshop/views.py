@@ -11,6 +11,7 @@ import json
 import gameshop.genre as game_genres  
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.core import mail
 
 
 def index(request):
@@ -26,7 +27,6 @@ def register(request):
         form = RegistrationForm(request.POST)
         print("register")
         if form.is_valid():
-            print("form is is_valid")
             form.save()
             return HttpResponseRedirect('/')
     context = {}
@@ -178,7 +178,7 @@ def modify_game(request, game_id):
                 return HttpResponseRedirect('/developer')
             else:
                 context = {'form' : form, 'game_id' : game_id}
-                template = 'gameshop/modify_game.html'
+                template = 'gameshop/add_game.html'
                 return render(request, template, context)
     return HttpResponseRedirect('/')
 
@@ -201,13 +201,37 @@ def search(request):
     context={'games': games}
     return render(request, 'gameshop/search.html', context)   
 
-"""def handler404(request):
-    response=render_to_response('404.html', {}, context_instance=RequestContext(request))
-    response.status_code=404
-    return response 
+def verify_email(request):
+    context = {}
+    if request.method == 'GET':
+        username = request.GET.get('username')
+        email = request.GET.get('email')
+        secret_key = '6cd118b1432bf22942d93d784cd17084' # pitää muutaa http://payments.webcourse.niksula.hut.fi/key/
+        checksumstr = "username={}&email={}&token={}".format(username, email, secret_key)
+        m = md5(checksumstr.encode('ascii'))
+        checksum = m.hexdigest()
+        if checksum == request.GET.get('checksum'):
+            user = get_object_or_404(User, username=username)
+            user.is_active = True
+            user.save()
+            return HttpResponseRedirect('/')
 
-def handler500(request):
-    response=render_to_response('500.html', {}, context_instance=RequestContext(request))
-    response.status_code=500
-    return response 
-"""
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        user = get_object_or_404(User, username=username)
+        secret_key = '6cd118b1432bf22942d93d784cd17084' # pitää muutaa http://payments.webcourse.niksula.hut.fi/key/
+        checksumstr = "username={}&email={}&token={}".format(username, user.email, secret_key)
+        m = md5(checksumstr.encode('ascii'))
+        checksum = m.hexdigest()
+        link = "http://localhost:8000/verify?&username={}&email={}&&checksum={}".format(username, user.email, checksum)
+        with mail.get_connection() as connection:
+            mail.EmailMessage("Verify", link, "skeletor@skeletor.fi", [user.email],connection=connection).send()
+        context['link_sended'] = True
+        template = "gameshop/verify.html"
+        return render(request, template, context)
+
+
+    template = "gameshop/verify.html"
+    return render(request, template, context)
+
+
