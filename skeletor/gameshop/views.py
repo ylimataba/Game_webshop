@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse   
 from django.contrib import auth                 
 from django.core.context_processors import csrf 
@@ -8,7 +8,10 @@ from .forms import RegistrationForm, PaymentForm, GameForm
 from hashlib import md5
 from django.contrib.auth.models import User
 import json
+import gameshop.genre as game_genres  
+from django.template import RequestContext
 from django.core.urlresolvers import reverse
+
 
 def index(request):
     context = {'user':request.user}
@@ -117,6 +120,7 @@ def payment(request):
             if checksum == request.GET.get('checksum'):
                 game = get_object_or_404(Game, name=game_name)
                 template = 'gameshop/shop_success.html'
+                context["game"]=game
                 user=request.user
                 user.gamer.addGame(game)
             else:
@@ -149,6 +153,8 @@ def add_game(request):
                 game = form.save(commit=False)
                 game.game_developer = request.user
                 game.save()
+                user.gamer.library.add(game)
+                user.save()
                 return HttpResponseRedirect('/developer')
 
         form = GameForm()
@@ -180,3 +186,24 @@ def remove_game(request, game_id):
             game.delete()
     return HttpResponseRedirect('/developer')
 
+def search(request):
+    item=request.POST.get("search")
+    games=list(Game.objects.filter(name=item))
+    dictionary=dict(game_genres.GENRE_CHOICES)
+    genres=list(dictionary.values())
+    if item in genres:
+        genre=list(dictionary.keys())[genres.index(item)]
+        games.extend(list(Game.objects.filter(genre=genre)))
+    context={'games': games}
+    return render(request, 'gameshop/search.html', context)   
+
+"""def handler404(request):
+    response=render_to_response('404.html', {}, context_instance=RequestContext(request))
+    response.status_code=404
+    return response 
+
+def handler500(request):
+    response=render_to_response('500.html', {}, context_instance=RequestContext(request))
+    response.status_code=500
+    return response 
+"""
