@@ -2,6 +2,9 @@
 
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
+{% for error in form.errors %}
+{{ error }} <br>
+{% endfor %}
 {% endif %}
 
 {% if next %}

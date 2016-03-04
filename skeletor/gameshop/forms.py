@@ -23,13 +23,13 @@ class RegistrationForm(UserCreationForm):
 
         if commit:
             print('saving user')
+            user.is_active = False
             user.save()
             if self.cleaned_data['developer']:
                 developer = Developer(user=user)
                 developer.save()
             gamer = Gamer(user=user)
             gamer.save()
-
 
         return user
 
