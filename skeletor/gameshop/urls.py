@@ -14,6 +14,6 @@ urlpatterns = [
     url(r'^remove/(?P<game_id>[0-9]+)/$', views.remove_game, name='remove'),
     url(r'^search$', views.search, name='search'),
     url(r'^verify$', views.verify_email, name='verify'),
-
+    url(r'^statistics/(?P<game_id>[0-9]+)/$', views.game_statistics, name='statistics'),
 ]
 

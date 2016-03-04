@@ -148,6 +148,15 @@ def developer(request):
 
     return render(request, template, context)
 
+def game_statistics(request,game_id):
+    user=request.user
+    game=get_object_or_404(Game, id=game_id)
+    stats=user.developer.statistics[game.name]
+    if hasattr(user, 'developer'):
+        if game in user.developer.inventory.all():
+            context = {'user': user, 'statistics': stats}    
+    return render(request, 'gameshop/game_statistics.html', context)
+
 def add_game(request):
     user = request.user
     if hasattr(user, 'developer'):
