@@ -1,10 +1,13 @@
+{% extends "base.html" %}
 
-
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% for error in form.errors %}
-{{ error }} <br>
+{% block content %}
+<div class="container-fluid bg-1 text-center">
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<p>{{ error }}</p>
 {% endfor %}
+{% else %}
+<p>Please enter a correct username and password. Note that both fields may be case-sensitive.</p>
 {% endif %}
 
 {% if next %}
@@ -16,7 +19,7 @@
     {% endif %}
 {% endif %}
 
-<div id="login" style="background-color:rgba(255, 255, 255, 0.2);padding:20px;">
+<div id="login"> 
         <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
         {% csrf_token %}
         {% if next %}
@@ -45,7 +48,5 @@
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 <p><a href="{% url 'shop:register' %}">Registeration</a></p>
 </div>
-
-
-
-
+</div>
+{% endblock %}

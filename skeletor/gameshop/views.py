@@ -14,8 +14,12 @@ from django.core.urlresolvers import reverse
 
 
 def index(request):
+    if not request.user.is_authenticated():
+        template = 'registration/login.html'
+    else:
+        template = 'gameshop/index.html'
     context = {'user':request.user}
-    return render(request, 'gameshop/index.html', context)
+    return render(request, template, context)
 
 def register(request):
     if request.method == 'POST':
