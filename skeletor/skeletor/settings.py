@@ -25,7 +25,7 @@ SECRET_KEY = '*=*gtamk4_n2-z(b0fc*^7#^lw_*t%*6ow1c+g8xdic9xgg-h6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost',]
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
