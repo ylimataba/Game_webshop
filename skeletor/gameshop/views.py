@@ -154,7 +154,7 @@ def game_statistics(request,game_id):
     stats=user.developer.statistics[game.name]
     if hasattr(user, 'developer'):
         if game in user.developer.inventory.all():
-            context = {'user': user, 'statistics': stats}    
+            context = {'game': game, 'statistics': stats}    
     return render(request, 'gameshop/game_statistics.html', context)
 
 def add_game(request):

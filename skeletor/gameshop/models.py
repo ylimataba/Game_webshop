@@ -98,5 +98,8 @@ class GameSale(models.Model):
     timeBought=models.DateTimeField(auto_now_add=True)
     gamePrice=models.FloatField()
     
+    class Meta:
+        ordering=["-timeBought"]
+
     def __str__(self):
         return "{0}-{1}".format(self.game.name, self.timeBought)
