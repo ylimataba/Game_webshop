@@ -30,3 +30,13 @@ We run a bit out of time which prevented us from proper testing and improving th
 5. Link to Heroku
 -----------------
 https://protected-garden-48702.herokuapp.com
+
+6. Users
+--------
+Gamer account:
+username: testipelaaja
+password testipelaaja
+
+Developer account:
+username: testideveloper
+password: testideveloper
