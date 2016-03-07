@@ -9,13 +9,14 @@ Developer
 
 {% block content %}
 <div class="container-fluid bg-1 text-center">
-    {% if inventory %}
     <div class="table-responsive col-md-8 col-md-offset-2">
         <h1 class="text-left">GAMES</h1>
         <p class="text-left">
             <a href="{% url 'shop:add' %}"><span class="btn btn-default glyphicon glyphicon-upload"></span></a>
             Upload a new game.
         </p>
+
+        {% if inventory %}
 
         <table class="table-bordered" style="width:100%;">
             <thead>

@@ -109,6 +109,7 @@ def play(request,game_id):
     else:
         return HttpResponseRedirect('/')
 
+@login_required(login_url='/')
 def payment(request):
     context = {}
     if request.method == 'GET':
@@ -139,23 +140,27 @@ def payment(request):
 def developer(request):
     user = request.user
     context = {'user' : user}
-    if hasattr(user, 'developer'):
+    if user.is_authenticated and hasattr(user, 'developer'):
         inventory = user.developer.inventory.all()
         context['inventory'] = inventory
         statistics=user.developer.statistics
         context['statistics'] = statistics
-    template = 'gameshop/developer.html'
+        template = 'gameshop/developer.html'
 
-    return render(request, template, context)
+        return render(request, template, context)
+    else:
+        return HttpResponseRedirect('/')
 
 def game_statistics(request,game_id):
     user=request.user
     game=get_object_or_404(Game, id=game_id)
-    stats=user.developer.statistics[game.name]
-    if hasattr(user, 'developer'):
+    if user.is_authenticated and hasattr(user, 'developer'):
+        stats=user.developer.statistics[game.name]
         if game in user.developer.inventory.all():
             context = {'game': game, 'statistics': stats}    
-    return render(request, 'gameshop/game_statistics.html', context)
+            return render(request, 'gameshop/game_statistics.html', context)
+    else:
+        return HttpResponseRedirect('/')
 
 def add_game(request):
     user = request.user
@@ -176,6 +181,7 @@ def add_game(request):
     else:
         return HttpResponseRedirect('/')
 
+@login_required(login_url='/')
 def modify_game(request, game_id):
     user = request.user
     game = get_object_or_404(Game, id=game_id)
@@ -191,6 +197,7 @@ def modify_game(request, game_id):
                 return render(request, template, context)
     return HttpResponseRedirect('/')
 
+@login_required(login_url='/')
 def remove_game(request, game_id):
     user=request.user
     game=get_object_or_404(Game, id=game_id)
