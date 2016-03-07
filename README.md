@@ -1,4 +1,4 @@
-Project Plan
+Final Submission
 ============
 
 1. Team
@@ -7,118 +7,26 @@ Project Plan
 355810 Johannes Kaunisvaara
 355153 Matti Yli-Ojanperä
 
-2. Goal
--------
-Our first Goal for the project is to create an online game store for JavaScript games. The service has two types of users: players and developers. Developers can add their games to the service and set a price for it. Players can buy games on the platform and then play purchased games online.
+2. Implemented features
+-----------------------
+Authentication 200 points
+Basic player functionalities 300 points
+Basic developer functionalities 200 points
+Game/service interaction 300 points
+Quality of Work 75 points
+Mobile Friendly 50 points
+Non-functional requirements 100
 
-Our second goal is to improve our skills in web software developing and team work.
+Total 1225 points
 
+3. What we did well
+--------------------
+We made a nice looking web app that is functional and easy to use.
 
-3. Plans
---------
-### URL layout ###
-index.html - The main page
-register.html - User and developer registration
-profile.html - User profile for developers and gamers
-shop.html - List of games in shop
-play.html - Page for selected game for playing
-404.html - Customized 404 page
+4. Struggles
+------------
+We run a bit out of time which prevented us from proper testing and improving the quality of our code. For example css is in our base template which would have been better to have it in separate style.css file also javascript is in our templates. And we would have wanted to focus more on permissions and use 403 page where as now in many cases we just redirect to index page when user has no permissions. We didn't have time to fiqure out why in heroku our static file are not loaded properly.
 
-### Additional features ###
-Mobile friendly (Bootstrap)
-Social media sharing
-Third party login
-Save/load and resolution feature
-Own game
-
-### Django models ###
-* user
-    + Basic information of user(Name, email etc.)
-    + Information whether the user is developer or gamer
-    + List of games the user has bought
-    + List of games the user has developed
-* game
-    + Basic information of game(Name, developer etc.)
-    + Leaderboard
-    + source
-
-4. Process and Time Schedule
-----------------------------
-
-* Week 50
-	+ Start project plan
-
-* Week 51
-	+ Finish project plan
-
-* Week 52
-	+ Holidays
-
-* Week 53
-	+ Holidays
-
-* Week 1
-	+ Creation of Django project
-	+ Authentication
-		- First draft of templates
-	+ Creation of models
-		- Basic player functionalities 
-			+ First draft of templates
-			
-		- Basic developer functionalities 
-			+ First draft of templates
-			
-
-* Week 2
-	+ Authentication
-		- Email confirmation
-	+ Basic player functionalities 
-		- Finishing models
-		- Begin testing player functionalities
-	+ Basic developer functionalities 
-		- Finishing models
-		- Begin testing developer functionalities
-
-* Week 3
-	+ Game/service interaction
-	+ Continuing unit tests
-
-* Week 4
-	+ Security proofing
-	+ Finish unit tests
-	
-* Week 5
-	+ Visual appearance CSS / Bootsrap 
-	+ Additional Features
-		- Mobile Friendly
-		- Social media Sharing
-
-* Week 6
-	+ Additional Features
-		- Third party login
-		- Save/Load and resolution feature
-
-* Week 7
-	+ Final testing round
-	+ Finishing project 
-	+ Own Game?
-
-* Deadlines
-    * Group registration - 13.12.2015 midnight
-    * Project Plan - 20.12.2015 midnight
-    * Final submission - 20.2.2016 midnight (end of period III)
-    * Project demonstrations - few weeks after submission, announced when space has been reserved
-
-5. Testing
-----------
-Backend is tested by unit tests.
-Frontend is tested by hand or if we have time, we use robot framework 
-for automated tests
-
-Testing will be done in every step of implementation and can be seen in schedule. We have reserved also week 4 and week 7 for testing.
-
-6. Risk Analysis
-----------------
-Week 4 is reserved for security proofing. We are concentrated to prevent manipulating scrores in games, getting games without payment and profile security.
-
-
+5. Link to Heroku
+-----------------
+https://protected-garden-48702.herokuapp.com
